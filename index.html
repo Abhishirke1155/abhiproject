@@ -1,0 +1,335 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>BMW Showcase</title>
+  <style>
+    body {
+      margin: 0;
+      font-family: Arial, sans-serif;
+     background: linear-gradient(135deg, #dfb3b3, #833d04);
+      color: #222;
+      overflow-x: hidden;
+    }
+
+    /* Header */
+    header {
+      background: rgb(255, 155, 5);
+      color: rgb(0, 0, 0);
+      padding: 20px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      position: sticky;
+      top: 0;
+      z-index: 1000;
+    }
+    header img { height: 60px; }
+    header h1 { margin: 0; font-size: 2.5rem; }
+
+    /* Dropdown */
+    .dropdown { position: relative; display: inline-block; }
+    .dropbtn {
+      background: linear-gradient(45deg, #007bff, #00d4ff);
+      color: rgb(0, 0, 0);
+      padding: 12px 24px;
+      border: none;
+      border-radius: 30px;
+      cursor: pointer;
+      font-weight: bold;
+      letter-spacing: 1px;
+      transition: all 0.3s ease;
+      box-shadow: 0 4px 10px rgba(0, 123, 255, 0.4);
+    }
+    .dropbtn:hover {
+      transform: translateY(-3px) scale(1.05);
+      box-shadow: 0 6px 15px rgba(0, 123, 255, 0.6);
+    }
+    .dropdown-content {
+      display: none;
+      position: absolute;
+      right: 0;
+      background-color: white;
+      min-width: 160px;
+      border-radius: 8px;
+      overflow: hidden;
+      box-shadow: 0 8px 16px rgba(0,0,0,0.2);
+      z-index: 1;
+      animation: fadeIn 0.3s ease;
+    }
+    .dropdown-content a {
+      color: black;
+      padding: 12px;
+      text-decoration: none;
+      display: block;
+      transition: background 0.3s;
+    }
+    .dropdown-content a:hover { background-color: #f1f1f1; }
+    .dropdown:hover .dropdown-content { display: block; }
+
+    @keyframes fadeIn {
+      from {opacity: 0; transform: translateY(-10px);}
+      to {opacity: 1; transform: translateY(0);}
+    }
+
+    /* Models grid */
+    .models {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 20px;
+      padding: 20px;
+    }
+    .card {
+      background: linear-gradient(180deg, #2f2e2e, #d0cdcd);
+      border-radius: 12px;
+      overflow: hidden;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+    }
+    .card:hover {
+      transform: translateY(-5px) scale(1.02);
+      box-shadow: 0 6px 20px rgba(0,0,0,0.15);
+    }
+    .card img {
+      width: 100%;
+      height: 200px;
+      object-fit: cover;
+    }
+    .card-content { padding: 15px; }
+
+    /* Section titles */
+    .section-title {
+      text-align: center;
+      margin: 40px 0 20px;
+      font-size: 2rem;
+      color: #111;
+    }
+
+    /* Footer buttons */
+    .footer-buttons {
+      background: black;
+      padding: 20px;
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 15px;
+    }
+    .footer-buttons button {
+      background: linear-gradient(45deg, #007bff, #00d4ff);
+      color: white;
+      padding: 12px 24px;
+      border: none;
+      border-radius: 30px;
+      cursor: pointer;
+      font-weight: bold;
+      letter-spacing: 1px;
+      transition: all 0.3s ease;
+      box-shadow: 0 4px 10px rgba(0, 123, 255, 0.4);
+      min-width: 120px;
+    }
+    .footer-buttons button:hover {
+      transform: translateY(-3px) scale(1.05);
+      box-shadow: 0 6px 15px rgba(0, 123, 255, 0.6);
+    }
+
+    /* Contact overlay */
+    .contact-overlay {
+      display: none;
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(0,0,0,0.7);
+      justify-content: center;
+      align-items: center;
+      overflow-y: auto;
+      padding: 20px;
+      animation: fadeIn 0.4s ease;
+    }
+    .contact-box {
+      background: white;
+      padding: 30px;
+      border-radius: 12px;
+      text-align: center;
+      max-width: 400px;
+      width: 100%;
+      box-shadow: 0 6px 20px rgba(0,0,0,0.2);
+      animation: slideUp 0.4s ease;
+    }
+    .contact-box h2 { margin-bottom: 20px; }
+    .socials a {
+      margin: 10px;
+      display: inline-block;
+      font-size: 20px;
+      color: #007bff;
+      text-decoration: none;
+      transition: transform 0.3s, color 0.3s;
+    }
+    .socials a:hover { transform: scale(1.2); color: #00d4ff; }
+
+    @keyframes slideUp {
+      from {transform: translateY(40px); opacity: 0;}
+      to {transform: translateY(0); opacity: 1;}
+    }
+
+    /* Responsive */
+    @media (max-width: 600px) {
+      header h1 { font-size: 1.8rem; }
+      .card img { height: 160px; }
+    }
+
+     .center-text {
+      text-align: center;
+    }
+  </style>
+</head>
+<body>
+  <!-- Header -->
+  <header>
+    <div style="display:flex; align-items:center; gap:15px;">
+      <img src="Untitled-1-Recovered-Recovered.png" alt="Logo">
+    </div>
+    <div style="display:flex; align-items:center; gap:15px;">
+      <img src="https://upload.wikimedia.org/wikipedia/commons/4/44/BMW.svg" alt="BMW Logo">
+      <h1>BMW</h1>
+      
+    </div>
+    <div class="dropdown">
+      <button class="dropbtn">Options</button>
+      <div class="dropdown-content">
+        <a href="#">Test Drive</a>
+        <a href="#" onclick="openContact()">Contact</a>
+      </div>
+    </div>
+  </header>
+
+  <!-- Standard Models -->
+  <h2 class="section-title">BMW Models</h2>
+  <section class="models" id="models">
+    <div class="card">
+        <a href="BMW 3 SERIES.HTML" style="text-decoration: none; color: white;">
+      <img src="BMW 3 Series.jpg" alt="BMW 3 Series">
+      </a>
+      <div class="card-content">
+        <h3>BMW 3 Series</h3>
+        <p>The iconic sports sedan with dynamic design, precision handling, and advanced technology.</p>
+      </div>
+    </div>
+
+    <div class="card">
+        <a href="BMW 5 SERIES.HTML" style="text-decoration: none; color: white;">
+      <img src="bmw-5-series-wallpaper.jpg" alt="BMW 5 Series">
+      </a>
+      <div class="card-content">
+        <h3>BMW 5 Series</h3>
+        <p>Luxury and performance combined, featuring premium interiors and cutting-edge assistance systems.</p>
+      </div>
+    </div>
+
+    <div class="card">
+        <a href="bmw-x5.html" style="text-decoration: none; color: white;">
+      <img src="BMW X5.jpg" alt="BMW X5">
+      </a>
+      <div class="card-content">
+        <h3>BMW X5</h3>
+        <p>The ultimate SUV blending power, versatility, and elegance for every journey.</p>
+      </div>
+    </div>
+
+    <div class="card">
+         <a href="bmw-i7.html" style="text-decoration: none; color: white;">
+      <img src="bmw-7-series-wallpaper-photo.jpg" alt="BMW 7 Series">
+      </a>
+      <div class="card-content">
+        <h3>BMW 7 Series</h3>
+        <p>The flagship luxury sedan offering unmatched comfort, technology, and performance.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- M Models Section -->
+  <h2 class="section-title">BMW M Models</h2>
+  <section class="models">
+    <div class="card">
+        <a href="BMW M3.HTML" style="text-decoration: none; color: white;">
+      <img src="bmw-m3-background-image.jpg" alt="BMW M3">
+      </a>
+      <div class="card-content">
+        <h3>BMW M3</h3>
+        <p>A high-performance sports sedan with aggressive design, precision handling, and thrilling power.</p>
+      </div>
+    </div>
+
+    <div class="card">
+        <a href="bmw-m4.html" style="text-decoration: none; color: white;">
+      <img src="bmw-m4-background.jpg" alt="BMW M4">
+      </a>
+      <div class="card-content">
+        <h3>BMW M4</h3>
+        <p>A coupe with iconic style and M TwinPower Turbo engines delivering pure driving excitement.</p>
+      </div>
+    </div>
+
+    <div class="card">
+        <a href="BMW M4CS.HTML" style="text-decoration: none; color: white;">
+      <img src="1773857-3500x1969-desktop-hd-bmw-m4-wallpaper-photo.jpg" alt="BMW M4 CS">
+      </a>
+      <div class="card-content">
+        <h3>BMW M4 CS</h3>
+        <p>A limited-edition track-inspired coupe with lightweight design and race-bred dynamics.</p>
+      </div>
+    </div>
+
+    <div class="card">
+        <a href="BMW M8.HTML" style="text-decoration: none; color: white;">
+      <img src="bmw-m8-background-image.jpg" alt="BMW M8">
+      </a>
+      <div class="card-content">
+        <h3>BMW M8</h3>
+        <p>The ultimate expression of luxury and performance with up to 617 hp and bold design.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Footer Buttons -->
+  <div class="footer-buttons">
+    <button onclick="openContact()">Contact</button>
+    <button onclick="scrollToSection('info')">Info</button>
+    <button onclick="scrollToSection('service')">Assistance & Service</button>
+    <button onclick="scrollToSection('models')">Models</button>
+  </div>
+
+  <!-- Contact Overlay -->
+  <div class="contact-overlay" id="contactOverlay">
+    <div class="contact-box">
+      <h2>Contact Us</h2>
+      <div class="socials">
+        <a href="https://wa.me" target="_blank">WhatsApp</a>
+        <a href="https://facebook.com" target="_blank">Facebook</a>
+        <a href="https://instagram.com" target="_blank">Instagram</a>
+        <a href="https://youtube.com" target="_blank">YouTube</a>
+      </div>
+      <button class="dropbtn" onclick="closeContact()">Close</button>
+    </div>
+  </div>
+
+  <!-- Scripts -->
+  <script>
+    function openContact() {
+      document.getElementById("contactOverlay").style.display = "flex";
+    }
+    function closeContact() {
+      document.getElementById("contactOverlay").style.display = "none";
+    }
+    function scrollToSection(sectionId) {
+      const section = document.getElementById(sectionId);
+      if(section) {
+        section.scrollIntoView({ behavior: "smooth" });
+      }
+    }
+  </script>
+</body>
+</html>
